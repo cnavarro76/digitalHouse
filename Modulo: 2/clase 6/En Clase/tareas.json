@@ -1,0 +1,14 @@
+[
+  {
+      "titulo": "Comer",
+      "estado": "pendiente"
+  },
+  {
+      "titulo": "Tomar una Ducha",
+      "estado": "progreso"
+  },
+  {
+      "titulo": "Aprender JS",
+      "estado": "terminada"
+  }
+]
