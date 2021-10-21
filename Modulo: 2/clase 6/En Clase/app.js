@@ -1,39 +1,33 @@
-// entra la modularidad y llamo a mi modulo nuevo
-const tareasFunc = require('./funcionesDeTareas');
-// encunetro argumento en linea de comando
-let accion = process.argv[2];
+//invoco modulo de fs
+let fs = require('fs');
 
-let tareas = tareasFunc.leerArchivo();
+function leerArchivo(){
+    const archivo = fs.readFileSync('./tareas.json','utf-8');
+    return JSON.parse(archivo);
+}
 
-//checo posibles opciones de argumento en linea de comando
-switch(accion){
-    case undefined:
-        console.log("Atencion -Tienes que pasar una accion");
-        break;
+function guardarArchivo(tareas){
+    let tareasJSON = JSON.stringify(tareas);
+    fs.writeFileSync('./tareas.json', tareasJSON);
+}
 
-    case 'listar':
-        console.log(`===== Listando todas las tareas =====`);
-        tareasFunc.listarTareas(tareas);
-        break;
 
-    case 'crear':
-        const nuevaTarea = {
-            titulo: process.argv[3],
-            estado: 'pendiente'
-        };
-        tareasFunc.guardarTarea(nuevaTarea);
-        console.log(`===== Nueva Tarea Creada =====`);
-        break;
-    
-    case 'filtrar':
-        let estado = process.argv[3];
-        const tareasFiltradas = tareasFunc.filtrarPorEstado(estado);
-        console.log(`===== Filtrando tareas con el estado: ${estado} =====`);
-        tareasFunc.listarTareas(tareasFiltradas);
+function guardarTarea(tarea){
+    let tareasActuales = leerArchivo();
+    tareasActuales.push(tarea);
+    guardarArchivo(tareasActuales);
+}
 
-        break;
+function filtrarPorEstado(estado){
+    let tareasActuales = this.leerArchivo();
+    const tareaFiltradas = tareasActuales.filter((unaTarea) => estado == unaTarea.estado);
+        return tareaFiltradas;
+}
 
-    default:
-        console.log("No entiendo que quieres hacer");
-        break;
-}    
+function listarTareas(tareas){
+    tareas.forEach(function(unatarea, index){
+        console.log(`${index + 1}.- La tarea: ${unatarea.titulo}.  Se encuentra es estado: ${unatarea.estado}`);
+    });
+}
+
+module.exports = {guardarTarea, leerArchivo, filtrarPorEstado,listarTareas};
