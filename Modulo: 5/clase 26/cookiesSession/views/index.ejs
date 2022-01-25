@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
+  <body <%= typeof color !== 'undefined' ? style=background-color:' + color %>>
+    <% if(typeof errors!=undefined){ %>
+      <ul>
+        <% for(let i=0; i<errors.length; i++){ %>
+          <li> style="color: red"><%= errors[i].msg %></li>
+        <% } %>
+      </ul>
+    <form action = "/" method = "POST">
+      <div>
+        <label for="">Ingresa tu nombre</label>
+        <input required type="text" name="name" />
+      </div>
+
+      <div>
+        <label for="">Selecciona un color</label>
+        <select name="color" id="color">
+          <option value="red">Rojo</option>
+          <option value="green">Verde</option>
+          <option value="blue">Azul</option>
+          <option value="yellow">Amarillo</option>
+        </select>
+      </div>
+      <div>
+        <label for="">Ingresa un email</label>
+        <input required type="text" name="email" />
+      </div>
+      <div>
+        <label for="">Ingresa un edad</label>
+        <input required type="text" name="age" />
+      </div>
+      <button type="submit">Enviar</button>
+    </form>
+
+
+    <!-- validar que las variables existan -->
+    <%= locals.name %>
+    <p><%= name%></p>
+    <p><%= color%></p>
+    <p><%= email%></p>
+    <p><%= age%></p>
+    <% } %>
+  </body>
+</html>

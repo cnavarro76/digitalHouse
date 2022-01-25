@@ -1,0 +1,1 @@
+actor_movieSELECT * FROM movies_db.actor_movie;
